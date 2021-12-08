@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-//define the schema of the collection
+//define the schema of the collections
 const HealthSchema = new Schema({
   status: { type: String },
   type: { type: String },
