@@ -3,18 +3,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 var cors = require("cors");
 
+//initialize an express application
 const app = express();
 
 //loads the configuration file
-require('dotenv').config();
+require("dotenv").config();
 
-// loads the middleware files
+//loads the middleware files
 const versionRoutes = require("./controllers/versionRoutes");
 const healthRoutes = require("./controllers/healthRoutes");
-
-app.use(express.json());
-
-app.use(cors());
 
 mongoose.Promise = global.Promise;
 
@@ -27,9 +24,14 @@ mongoose.connect(
   }
 );
 
-app.use(express.json()); //  useNewUrlParser: true, useFindAndModify: false
+//express middleware that convert request body to JSON
+app.use(express.json());
 
+//converts request body to JSON, it also carries out some other functionalities like: converting form-data to JSON
 app.use(express.urlencoded({ extended: true }));
+
+//enable CORS
+app.use(cors());
 
 //mount the router on the app
 app.use("/version", versionRoutes);
@@ -37,6 +39,6 @@ app.use("/version", versionRoutes);
 app.use("/health", healthRoutes);
 
 
-app.listen(process.env.PORT, process.env.HOSTNAME, () => {
-  console.log(`app listening at http://${process.env.HOSTNAME}:${process.env.PORT}/`);
+app.listen(process.env.PORT, () => {
+  console.log(`this app listening at port ${process.env.PORT}`);
 });
