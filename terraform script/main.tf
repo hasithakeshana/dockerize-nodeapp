@@ -14,9 +14,9 @@ provider "aws" {
   region  = "us-east-2"
 }
 
-## Create VPC
+# Create VPC
 resource "aws_vpc" "terraform-vpc" {
-  cidr_block           = "172.16.0.0/16"
+  cidr_block           = "172.16.0.0/24"
   enable_dns_hostnames = true
   tags = {
     Name = "terraform-demo-vpc"
@@ -27,7 +27,7 @@ output "aws_vpc_id" {
   value = aws_vpc.terraform-vpc.id
 }
 
-## Security Group
+# Security Group
 resource "aws_security_group" "terraform_private_sg" {
   description = "Allow limited inbound external traffic"
   vpc_id      = aws_vpc.terraform-vpc.id
@@ -70,10 +70,10 @@ output "aws_security_gr_id" {
   value = aws_security_group.terraform_private_sg.id
 }
 
-## Create Subnet 1
+# Create Subnet 1
 resource "aws_subnet" "terraform-subnet_1" {
   vpc_id            = aws_vpc.terraform-vpc.id
-  cidr_block        = "172.16.10.0/24"
+  cidr_block        = "172.16.0.128/25"
   availability_zone = "us-east-2a"
 
   tags = {
@@ -85,7 +85,7 @@ output "aws_subnet_subnet_1" {
   value = aws_subnet.terraform-subnet_1.id
 }
 
-## Create ec2 instance
+# Create ec2 instance
 resource "aws_instance" "terraform_wapp" {
   ami                         = "ami-0629230e074c580f2"
   instance_type               = "t2.micro"
