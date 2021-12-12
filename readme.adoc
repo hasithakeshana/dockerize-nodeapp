@@ -91,7 +91,7 @@ Hashicorp Terraform is an open-source tool for provisioning and managing cloud i
 
 === Prerequisites
 
-I assume you have installed Docker and it is running.
+installed Docker and it is running.
 need a account of mongodb cloud
 
 See the https://www.docker.com/[Docker] website for installation instructions.
