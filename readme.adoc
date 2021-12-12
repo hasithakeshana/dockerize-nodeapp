@@ -1,0 +1,236 @@
+= AsciiDoc README Template
+:doctype: article
+:description: A README template written in AsciiDoc markup
+:license-type: <enter license type>
+:author: Hasitha Hiran 
+:email: hasithakeshana9900@gmail.com
+:revnumber: v0.1
+:revdate: 2021-01-01
+:repository-url: https://github.com/JoeArauzo/AsciiDoc-README-Template
+:documentation-url: https://asciidoctor.org/docs/asciidoc-writers-guide/
+:source-highlighter: rouge
+:rouge-style: github
+:!showtitle:
+:icons: font
+:toc: preamble
+:imagesdir: assets/images
+
+
+// GitHub doesn't render asciidoc exactly as intended, so we adjust settings and utilize some html
+
+ifdef::env-github[]
+
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+
+++++
+
+<p align="center">
+  
+  <!-- REPLACE THE FOLLOWING URL WITH YOUR REPOSITORY'S URL -->
+  <a href="https://github.com/JoeArauzo/AsciiDoc-README-Template">
+    
+    <!-- REPLACE THE PLACEHOLDER LOGO WITH YOUR OWN LOGO AND ADJUST THE SIZE ACCORDINGLY -->
+    <img src="assets/images/placeholder-logo.png" alt="Logo" width="30%" height="30%"></a>
+  
+  <!-- REPLACE THE FOLLOWING WITH YOUR REPOSITORY/PROJECT TITLE -->
+  <h3 align="center">Site Reliability Engineering – Practical Exercise </h3>
+  
+  <p align="center">
+  
+    <!-- REPLACE THE FOLLOWING WITH YOUR REPOSITORY/PROJECT'S SHORT DESCRIPTION -->
+    This project has been implemented for the assignment of SRE 
+  
+    <br>
+    
+    <!-- REPLACE THE FOLLOWING URL WITH YOUR REPOSITORY'S DOCUMENTATION URL -->
+    <a href="https://asciidoctor.org/docs/asciidoc-writers-guide/"><strong>Explore the docs »</strong></a>
+    
+  </p>
+</p>
+
+++++
+
+endif::[]
+
+
+// This conditional section applies to all environments, except GitHub
+ifndef::env-github[]
+image::placeholder-logo.png[Logo, align=center, width=30%]
+[.text-center]
+[.lead]
+*{doctitle}*
+
+[.text-center]
+_{description}_ +
+{documentation-url}[Explore the docs »]
+endif::[]
+
+
+== About the Project
+This repository contains a simple application which will register users for upcoming online examinations. NodeJS and ExpressJS based crud API is used to the system implemenation. 
+
+Dockerizing is the process of packing, deploying, and running applications using Docker containers. Docker is an open source tool that ships your application with all the necessary functionalities as one package. The nodejs based app is contanerized and publish the image in docker hub repository.
+
+Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides secure, resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers. EC2 platform is used to deploy the nodejs application. API can accessible through a public IP address.
+
+Hashicorp Terraform is an open-source tool for provisioning and managing cloud infrastructure. It codifies infrastructure in configuration files that describe the topology of cloud resources. Terrafrom is used the infrastructure provisioning in this assignment.
+
+
+=== Built With
+//This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+* https://nodejs.org/en/[NodeJS] - Node.js is an open-source, cross-platform, back-end JavaScript runtime environment.
+* https://expressjs.com/[ExpressJS] - Express.js is a back end web application framework for Node.js, released as free and open-source software under the MIT License.
+* https://www.docker.com/[Docker] - Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers. 
+* https://www.terraform.io/[Terraform] - Terraform is an open-source infrastructure as code software tool created by HashiCorp. 
+
+
+
+=== Prerequisites
+
+I assume you have installed Docker and it is running.
+need a account of mongodb cloud
+
+See the https://www.docker.com/[Docker] website for installation instructions.
+
+== Getting Started
+
+Steps to dockerized the API and run locally:
+
+
+
+1. Clone this repo
+
+        git clone https://github.com/hasithakeshana/dockerize-nodeapp.git app
+
+3. Locate to the docker-app folder
+
+        cd app/docker app
+
+4. Build the image
+
+        docker build -t docker-node-api .
+
+    This will take a few seconds.
+
+5. Run the image's default command, which should start everything up. The `-p` option forwards the container's port 3000 to port 3000 on the host.
+
+        docker run -p 3000:3000 docker-node-api
+
+6. Once everything has started up, you should be able to access the api via [http://localhost:3000/](http://localhost:3000/) on your host machine.
+
+        open http://localhost:3000/health
+        open http://localhost:3000/version
+
+
+
+=== Dockerhub repository - Pull the image from dockerhub
+
+Dockerimage of the API has pushed to the dockerhub. 
+
+Steps to pull the image and run the container:
+
+
+        docker pull hasithakeshana/dockerapi
+        
+        docker run -p 3000:3000 hasithakeshana/dockerapi
+
+
+=== Access the API through public IP address - EC2 instance
+
+AWS EC2 free tier instance is used to deploy the nodejs application. API can accessible through a public IP address.
+
+* Ubuntu Server 20.04 LTS (HVM),EBS General Purpose (SSD) Volume Type
+
+* Instance Type - t2.micro
+
+* Availability zone - us-east-2
+
+
+Node app is exposed to outside through port 8000.
+
+        open http://ec2-18-117-129-232.us-east-2.compute.amazonaws.com:8000/health
+        open http://ec2-18-117-129-232.us-east-2.compute.amazonaws.com:8000/version
+
+
+
+=== API Documentation 
+
+Eight(8) crud API routes are implemented. 
+
+Health Routes
+
+sample input - POST and PUT methods
+
+
+
+	{
+  "name":"sample",
+	"group":"sample value",
+	"status":"sample value"
+  }
+	
+
+
+
+POST - http://ec2-18-117-129-232.us-east-2.compute.amazonaws.com:8000/health
+
+GET - http://ec2-18-117-129-232.us-east-2.compute.amazonaws.com:8000/health
+
+PUT - http://ec2-18-117-129-232.us-east-2.compute.amazonaws.com:8000/health/id
+
+DELETE - http://ec2-18-117-129-232.us-east-2.compute.amazonaws.com:8000/health/id
+
+Vesrion Routes
+
+sample input - POST and PUT methods
+
+
+  {
+	"name":"sample",
+	"group":"sample value",
+	"status":"sample value"
+	}
+
+POST - http://ec2-18-117-129-232.us-east-2.compute.amazonaws.com:8000/version
+
+GET - http://ec2-18-117-129-232.us-east-2.compute.amazonaws.com:8000/version
+
+PUT - http://ec2-18-117-129-232.us-east-2.compute.amazonaws.com:8000/version/id
+
+DELETE - http://ec2-18-117-129-232.us-east-2.compute.amazonaws.com:8000/version/id
+
+
+
+=== Infrastructure as Code - Terraform
+
+Script to build a ec2 instance with VPC,subnet and security groups.
+
+Steps to run the script:
+
+
+1. Locate to the terraform script folder
+
+        
+        cd terraform script
+	
+2. When you create a new configuration — or check out an existing configuration from version control — you need to initialize the directory with
+	
+	terraform init
+	
+3. create infastructure - Apply the configuration now with the terraform apply command.	
+	
+	terraform apply
+        
+        
+
+
+
+== Contact
+{author} - {email}
+
+
+== Acknowledgements
