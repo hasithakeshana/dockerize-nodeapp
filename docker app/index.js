@@ -15,14 +15,19 @@ const healthRoutes = require("./controllers/healthRoutes");
 
 mongoose.Promise = global.Promise;
 
-//connect with mongodb cloud version
-mongoose.connect(
-  process.env.DATABASE_URL,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => {
-    console.log("DB connected");
-  }
-);
+// Connect to MongoDB
+
+mongoose
+
+  .connect(
+    "mongodb://mongo:27017/docker-node-mongo",
+
+    { useNewUrlParser: true }
+  )
+
+  .then(() => console.log("MongoDB Connected"))
+
+  .catch((err) => console.log(err));
 
 //express middleware that convert request body to JSON
 app.use(express.json());
@@ -37,7 +42,6 @@ app.use(cors());
 app.use("/version", versionRoutes);
 
 app.use("/health", healthRoutes);
-
 
 app.listen(process.env.PORT, () => {
   console.log(`this app listening at port ${process.env.PORT}`);
