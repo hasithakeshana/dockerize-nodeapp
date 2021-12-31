@@ -92,7 +92,7 @@ Hashicorp Terraform is an open-source tool for provisioning and managing cloud i
 === Prerequisites
 
 installed Docker and it is running.
-need a account of mongodb cloud
+
 
 See the https://www.docker.com/[Docker] website for installation instructions.
 
@@ -110,17 +110,11 @@ Steps to dockerized the API and run locally:
 
         cd app/docker app
 
-4. Build the image
+3. Run the following command to run containers
 
-        docker build -t docker-node-api .
+        docker-compose up
 
-    This will take a few seconds.
-
-5. Run the image's default command, which should start everything up. The `-p` option forwards the container's port 3000 to port 3000 on the host.
-
-        docker run -p 3000:3000 docker-node-api
-
-6. Once everything has started up, you should be able to access the api via [http://localhost:3000/](http://localhost:3000/) on your host machine.
+4. Once everything has started up, you should be able to access the api via [http://localhost:3000/](http://localhost:3000/) on your host machine.
 
         open http://localhost:3000/health
         open http://localhost:3000/version
@@ -168,10 +162,9 @@ sample input - POST and PUT methods
 
 
 	{
-  "name":"sample",
-	"group":"sample value",
-	"status":"sample value"
-  }
+  	"status":"sample value"
+	"type":"sample value"
+	}
 	
 
 
@@ -188,8 +181,7 @@ Vesrion Routes
 
 sample input - POST and PUT methods
 
-
-  {
+	{
 	"name":"sample",
 	"group":"sample value",
 	"status":"sample value"
