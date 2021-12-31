@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    container_name: docker-node-mongo-new
+    restart: always
+    build: .
+    ports:
+      - '3000:3000'
+    links:
+      - mongo
+    environment:
+      PORT: "${PORT}"
+      DB_NAME: "${DB_NAME}"
+      MONGODB_PORT: "${MONGODB_PORT}"
+      DB_USER: "${DB_USER}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+
+  mongo:
+    container_name: mongo-new
+    image: mongo
+    ports:
+      - '27017:27017'
+
+
+
+      
